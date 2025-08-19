@@ -1,0 +1,110 @@
+{
+  "timestamp": "2025-08-19T15:22:50.536707",
+  "base_url": "http://localhost:3001",
+  "summary": {
+    "total_tests": 8,
+    "passed_tests": 7,
+    "failed_tests": 1,
+    "success_rate": 87.5
+  },
+  "test_results": [
+    {
+      "name": "Health Endpoint",
+      "success": true,
+      "details": "Mode: wasm, Clients: 0",
+      "response_data": {
+        "status": "ok",
+        "mode": "wasm",
+        "timestamp": 1755616970482,
+        "clients": 0
+      },
+      "timestamp": "2025-08-19T15:22:50.484796"
+    },
+    {
+      "name": "Mode Endpoint",
+      "success": true,
+      "details": "Mode: wasm",
+      "response_data": {
+        "mode": "wasm"
+      },
+      "timestamp": "2025-08-19T15:22:50.488615"
+    },
+    {
+      "name": "Metrics Endpoint",
+      "success": true,
+      "details": "Duration: 74.414s, FPS: 0",
+      "response_data": {
+        "summary": {
+          "run_duration_s": 74.414,
+          "total_frames": 0,
+          "processed_frames": 0,
+          "dropped_frames": 0,
+          "processed_fps": 0,
+          "drop_rate": 0
+        },
+        "latency": {
+          "e2e": {
+            "median": 0,
+            "p95": 0
+          },
+          "server": {
+            "median": 0,
+            "p95": 0
+          },
+          "network": {
+            "median": 0,
+            "p95": 0
+          }
+        },
+        "bandwidth": {
+          "uplink_kbps": {
+            "median": 0,
+            "p95": 0
+          },
+          "downlink_kbps": {
+            "median": 0,
+            "p95": 0
+          }
+        }
+      },
+      "timestamp": "2025-08-19T15:22:50.492629"
+    },
+    {
+      "name": "WebRTC Offer Endpoint",
+      "success": true,
+      "details": "Endpoint working, expected error: Failed to set remote offer sdp: Failed to apply the description for 0: Invalid ICE parameters: ICE pwd must be between 22 and 256 characters long.",
+      "response_data": null,
+      "timestamp": "2025-08-19T15:22:50.518237"
+    },
+    {
+      "name": "WebRTC ICE Candidate Endpoint",
+      "success": true,
+      "details": "ICE candidate processed",
+      "response_data": {
+        "success": true
+      },
+      "timestamp": "2025-08-19T15:22:50.523228"
+    },
+    {
+      "name": "Static File Serving",
+      "success": false,
+      "details": "HTTP 404",
+      "response_data": null,
+      "timestamp": "2025-08-19T15:22:50.529073"
+    },
+    {
+      "name": "CORS Headers",
+      "success": true,
+      "details": "Found headers: ['Access-Control-Allow-Origin', 'Access-Control-Allow-Methods']",
+      "response_data": null,
+      "timestamp": "2025-08-19T15:22:50.531882"
+    },
+    {
+      "name": "Error Handling",
+      "success": true,
+      "details": "404 for non-existent endpoint",
+      "response_data": null,
+      "timestamp": "2025-08-19T15:22:50.536577"
+    }
+  ]
+}

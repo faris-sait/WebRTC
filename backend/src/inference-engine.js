@@ -185,3 +185,52 @@ class InferenceEngine {
         }
 
         return kept;
+    }
+
+    calculateIoU(box1, box2) {
+        // Calculate intersection area
+        const xLeft = Math.max(box1.xmin, box2.xmin);
+        const yTop = Math.max(box1.ymin, box2.ymin);
+        const xRight = Math.min(box1.xmax, box2.xmax);
+        const yBottom = Math.min(box1.ymax, box2.ymax);
+
+        if (xRight < xLeft || yBottom < yTop) return 0;
+
+        const intersectionArea = (xRight - xLeft) * (yBottom - yTop);
+
+        // Calculate union area
+        const box1Area = (box1.xmax - box1.xmin) * (box1.ymax - box1.ymin);
+        const box2Area = (box2.xmax - box2.xmin) * (box2.ymax - box2.ymin);
+        const unionArea = box1Area + box2Area - intersectionArea;
+
+        return intersectionArea / unionArea;
+    }
+
+    generateMockDetections() {
+        // Generate realistic mock detections for demonstration
+        const mockDetections = [
+            {
+                label: 'person',
+                score: 0.87,
+                xmin: 0.1,
+                ymin: 0.2,
+                xmax: 0.4,
+                ymax: 0.8
+            },
+            {
+                label: 'chair',
+                score: 0.72,
+                xmin: 0.6,
+                ymin: 0.5,
+                xmax: 0.9,
+                ymax: 0.9
+            }
+        ];
+
+        // Randomly return 0-2 detections
+        const numDetections = Math.floor(Math.random() * 3);
+        return mockDetections.slice(0, numDetections);
+    }
+}
+
+module.exports = InferenceEngine;

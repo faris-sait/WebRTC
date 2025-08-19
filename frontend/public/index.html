@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#4ECDC4" />
+    <meta
+      name="description"
+      content="WebRTC Multi-Object Detection - Real-time object detection with video streaming"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Preload ONNX runtime for better performance -->
+    <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.16.3/dist/ort.min.js">
+    
+    <title>WebRTC Multi-Object Detection</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta property="og:title" content="WebRTC Multi-Object Detection" />
+    <meta property="og:description" content="Real-time object detection with video streaming using WebRTC and AI" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="WebRTC Multi-Object Detection" />
+    <meta name="twitter:description" content="Real-time object detection with video streaming using WebRTC and AI" />
+    
+    <!-- Performance hints -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <style>
+      /* Loading screen styles */
+      .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        z-index: 9999;
+      }
+      
+      .loading-spinner {
+        width: 60px;
+        height: 60px;
+        border: 4px solid rgba(78, 205, 196, 0.3);
+        border-top: 4px solid #4ECDC4;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 2rem;
+      }
+      
+      .loading-text {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      
+      .loading-subtitle {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        text-align: center;
+        max-width: 300px;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Hide loading screen when app is ready */
+      .app-ready .loading-screen {
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        pointer-events: none;
+      }
+      
+      /* Progressive enhancement styles */
+      .no-js {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+        padding: 2rem;
+        text-align: center;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      }
+      
+      .no-js h1 {
+        margin-bottom: 1rem;
+      }
+      
+      .no-js p {
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <div class="no-js">
+        <h1>📱 WebRTC Multi-Object Detection</h1>
+        <p>This application requires JavaScript to run.</p>
+        <p>Please enable JavaScript in your browser and refresh the page.</p>
+        <p>
+          This app provides real-time object detection using your camera with 
+          WebRTC streaming and AI-powered inference.
+        </p>
+      </div>
+    </noscript>
+    
+    <!-- Loading screen -->
+    <div class="loading-screen" id="loading-screen">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">📱 Loading WebRTC Detection</div>
+      <div class="loading-subtitle">
+        Initializing camera, AI models, and streaming components...
+      </div>
+    </div>
+    
+    <div id="root"></div>
+    
+    <script>
+      // Hide loading screen when React app is ready
+      window.addEventListener('load', function() {
+        setTimeout(function() {
+          const loadingScreen = document.getElementById('loading-screen');
+          if (loadingScreen) {
+            document.body.classList.add('app-ready');
+            setTimeout(() => {
+              loadingScreen.style.display = 'none';
+            }, 500);
+          }
+        }, 1000); // Min loading time for better UX
+      });
+      
+      // Error handling for WebRTC compatibility
+      window.addEventListener('error', function(e) {
+        console.error('Application error:', e.error);
+      });
+      
+      // Check WebRTC support
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        console.warn('WebRTC not supported in this browser');
+      }
+      
+      // Performance monitoring
+      if (window.performance) {
+        window.addEventListener('load', function() {
+          setTimeout(function() {
+            const perfData = performance.getEntriesByType('navigation')[0];
+            if (perfData) {
+              console.log('Page load time:', perfData.loadEventEnd - perfData.fetchStart + 'ms');
+            }
+          }, 0);
+        });
+      }
+    </script>
+  </body>
+</html>

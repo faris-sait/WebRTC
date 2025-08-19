@@ -1,0 +1,36 @@
+{
+  "name": "webrtc-detection-backend",
+  "version": "1.0.0",
+  "description": "WebRTC Multi-Object Detection Backend Server",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "cors": "^2.8.5",
+    "compression": "^1.7.4",
+    "uuid": "^9.0.0",
+    "wrtc": "^0.4.7",
+    "onnxruntime-node": "^1.16.3",
+    "sharp": "^0.32.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "webrtc",
+    "object-detection",
+    "onnx",
+    "real-time",
+    "computer-vision"
+  ],
+  "author": "WebRTC Detection Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

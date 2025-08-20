@@ -1,7 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const ConnectionPanel = ({ isConnected, qrCodeUrl, mode }) => {
+const ConnectionPanel = ({ isConnected, mode }) => {
   const [isQRExpanded, setIsQRExpanded] = useState(false);
+  const [generatedQRUrl, setGeneratedQRUrl] = useState('');
+
+  // Automatically detect current domain (works on localhost + Vercel)
+  const APP_URL = typeof window !== "undefined" 
+    ? window.location.origin 
+    : "https://your-app-name.vercel.app"; // fallback
+
+  // Generate QR code for app URL
+  useEffect(() => {
+    const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(APP_URL)}`;
+    setGeneratedQRUrl(qrApiUrl);
+  }, [APP_URL]);
 
   const getConnectionStatus = () => {
     if (isConnected) {
@@ -101,44 +113,45 @@ const ConnectionPanel = ({ isConnected, qrCodeUrl, mode }) => {
       </div>
 
       {/* QR Code Section */}
-      {qrCodeUrl && (
-        <div className="qr-section">
-          <div 
-            className="qr-header"
-            onClick={() => setIsQRExpanded(!isQRExpanded)}
-          >
-            <h4>📱 Mobile Connection</h4>
-            <span className="expand-icon">
-              {isQRExpanded ? '▼' : '▶'}
-            </span>
-          </div>
+      <div className="qr-section">
+        <div 
+          className="qr-header"
+          onClick={() => setIsQRExpanded(!isQRExpanded)}
+        >
+          <h4>📱 Mobile Connection</h4>
+          <span className="expand-icon">
+            {isQRExpanded ? '▼' : '▶'}
+          </span>
+        </div>
 
-          {isQRExpanded && (
-            <div className="qr-content">
-              <div className="qr-code-container">
-                <img 
-                  src={qrCodeUrl} 
-                  alt="QR Code for mobile connection"
-                  className="qr-code"
-                />
+        {isQRExpanded && generatedQRUrl && (
+          <div className="qr-content">
+            <div className="qr-code-container">
+              <img 
+                src={generatedQRUrl} 
+                alt="QR Code for app access"
+                className="qr-code"
+              />
+            </div>
+            <div className="qr-instructions">
+              <p>Scan with your phone camera to access:</p>
+              <div className="vercel-url-display">
+                <strong>{APP_URL}</strong>
               </div>
-              <div className="qr-instructions">
-                <p>Scan with your phone camera to:</p>
-                <ul>
-                  <li>• Stream video from mobile camera</li>
-                  <li>• Test detection on different devices</li>
-                  <li>• Access the app on mobile</li>
-                </ul>
-                <div className="qr-note">
-                  <small>
-                    📱 Make sure your phone and computer are on the same network
-                  </small>
-                </div>
+              <ul>
+                <li>• Stream video from mobile camera</li>
+                <li>• Test detection on different devices</li>
+                <li>• Access the app on mobile</li>
+              </ul>
+              <div className="qr-note">
+                <small>
+                  📱 Works both on localhost & deployed (Vercel)
+                </small>
               </div>
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
 
       {/* Connection Tips */}
       <div className="connection-tips">
@@ -158,7 +171,7 @@ const ConnectionPanel = ({ isConnected, qrCodeUrl, mode }) => {
           </div>
           <div className="tip-item">
             <span className="tip-icon">🌐</span>
-            <span className="tip-text">Strong WiFi recommended for stable streaming</span>
+            <span className="tip-text">Strong internet connection recommended</span>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 {
   "name": "webrtc-detection-backend",
   "version": "1.0.0",
-  "description": "WebRTC Multi-Object Detection Backend Server",
+  "description": "WebRTC Multi-Object Detection Backend Server (Signaling + Inference)",
   "main": "src/server.js",
   "scripts": {
     "start": "node src/server.js",
@@ -14,7 +14,6 @@
     "cors": "^2.8.5",
     "compression": "^1.7.4",
     "uuid": "^9.0.0",
-    "wrtc": "^0.4.7",
     "onnxruntime-node": "^1.16.3",
     "sharp": "^0.32.6"
   },
@@ -23,6 +22,7 @@
   },
   "keywords": [
     "webrtc",
+    "signaling",
     "object-detection",
     "onnx",
     "real-time",
